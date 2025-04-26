@@ -1,6 +1,16 @@
+using Microsoft.EntityFrameworkCore;
+using SistemaDeTickets.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<ticketContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Agrega el servicio de autorización
+builder.Services.AddAuthorization();
+
+// Asegúrate de agregar los controladores
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -22,6 +32,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Login}/{action=Login}/{id?}");
 
 app.Run();
