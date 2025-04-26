@@ -1,0 +1,24 @@
+﻿@model TuProyecto.Models.Tickets
+@{
+    var agentes = ViewData["Agentes"] as List<SelectListItem>;
+}
+
+<h2>Asignar Ticket</h2>
+
+<form asp-action="Asignar" method="post">
+    <input type="hidden" name="id" value="@Model.id_ticket" />
+    <div>
+        <label>Título:</label> <strong>@Model.titulo</strong>
+    </div>
+    <div>
+        <label>Asignar a:</label>
+        <select name="idAgente">
+            <option value="">-- Seleccione un agente --</option>
+            @foreach (var agente in agentes)
+            {
+                <option value="@agente.Value">@agente.Text</option>
+            }
+        </select>
+    </div>
+    <button type="submit">Asignar</button>
+</form>
